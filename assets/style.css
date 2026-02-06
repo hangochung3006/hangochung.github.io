@@ -1,0 +1,40 @@
+.container{
+    display: flex;
+}
+
+.col-left {
+    flex: 1.5;
+    text-align: center;
+}
+
+.col-right{
+    flex: 2;
+}
+
+.row-name {
+    
+}
+
+.row-infomation{
+    text-align: left;
+}
+
+.row-infomation-item{
+    display: flex;
+}
+
+.row-infomation-item img {
+    margin-right: 10px;
+}
+
+.row-infomation-item-2 {
+
+}
+
+.box {
+    background-color: red;
+}
+
+.box1 {
+    background-color: blue;
+}
