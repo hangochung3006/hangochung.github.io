@@ -6,6 +6,7 @@
     <title>My Infomation</title>
     <link rel="stylesheet" href="assets/style.css">
     <script src="assets/javascript.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
     <body>
@@ -17,34 +18,34 @@
                     <p>Lập trình viên</p>
                 </div>
                 <!--Ảnh của tôi-->
-                <div class="row-img">
-                    <img src="./assets/img/toi.jpg" alt="Alternate Text" style="width: 250px ; height: 250px;"/>
+                <div>
+                    <img class="row-img" src="assets/img/toi.jpg" alt="Alternate Text"/>
                 </div>
                 <!--Thông tin cá nhân-->
                 <div class="row-infomation">
                     <h3>Thông tin cá nhân</h3>
                     <div class="row-infomation-item">
-                        <img src="#" alt="Alternate Text" />
-                        <p>30/06/2001</p>
+                        <i class="bi bi-calendar-minus"></i>
+                        <time>30/06/2001</time>
                     </div>
                     <div class="row-infomation-item">
-                        <img src="#" alt="Alternate Text" />
+                        <i class="bi bi-person-fill"></i>   
                         <p>Nam</p>
                     </div>
                     <div class="row-infomation-item">
-                        <img src="#" alt="Alternate Text" />
+                        <i class="bi bi-telephone-fill"></i>
                         <p>0917652289</p>
                     </div>
                     <div class="row-infomation-item">
-                        <img src="#" alt="Alternate Text" />
+                        <i class="bi bi-envelope-at-fill"></i>
                         <p>hangochung3006@gmail.com</p>
                     </div>
                     <div class="row-infomation-item">
-                        <img src="#" alt="Alternate Text" />
+                        <i class="bi bi-geo-alt-fill"></i>
                         <p>Ngõ 36 Miếu Đầm, Mễ Trì, Nam Từ Liêm, Hà Nội</p>
                     </div>
                     <div class="row-infomation-item">
-                        <img src="#" alt="Alternate Text" />
+                        <i class="bi bi-info-circle-fill"></i>
                         <p>30/06/2001</p>
                     </div>
                 </div>
@@ -120,24 +121,160 @@
                     <!--Nét gạch-->
                     <hr />
                 </div>
+                <!--Học vấn-->
                 <div class="row-right">
                     <h3>Học vấn</h3>
                     <div class="row-infomation">
-                        <ul>
-                            <li>
-                                Trở thành lập trình viên với tinh thần ham học hỏi. Mong muốn được trải nghiệm môi trường làm
-                                việc chuyên nghiệp. Tận dụng những kỹ năng, kinh nghiệm của bản thân để đem lại nhiều đóng góp
-                                cho công ty nhất có thể
-                            </li>
-                            <li>
-                                Mục tiêu ngắn hạn: Sau 3 tháng có thể áp dụng những kiến thức và kỹ năng mà bản thân có về nghành
-                                Công Nghệ Thông Tin để thành thạo các công việc cơ bản của một lập trình viên.
-                            </li>
-                            <li>
-                                Mục tiêu dài hạn: Trong 3 năm tới cố gắng trở thành một nhân viên xuất sắc và là một trong những
-                                lập trình viên cốt cán của công ty
-                            </li>
-                        </ul>
+                        <div class="row-infomation-item-hocvan">
+                            <p>Trường đại học giao thông vận tải</p>
+                            <time>10/2019 - 04/2024</time>
+                        </div>
+                        <div>
+                            <p>Nghành công nghệ thông tin</p>
+                        </div>
+                        <div>
+                            <p>Tốt nghiệp bằng: Khá</p>
+                        </div>
+                        <div>
+                            <p>2.69/4</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Nét gạch-->
+                <hr />
+                <!--Kinh nghiệm làm việc-->
+                <div class="row-right">
+                    <h3>Kinh nghiệm làm việc</h3>
+                    <div class="row-infomation">
+                        <div class="row-infomation-item-knlv">
+                            <p>Sinh viên</p>
+                            <time>10/2019 - 07/2023</time>
+                        </div>
+                        <div>
+                            <p>Đại học giao thông vận tải</p>
+                        </div>
+                        <div>
+                            <p>Tham gia vào các bài tập lớn trong trường bao gồm:</p>
+                            <ul>
+                                <li>Lập trình website bán sách, trang admin quản lý bằng C# .Net</li>
+                                <ul>
+                                    <li>Tích hợp thanh toán với MoMo (Cấu hình API theo tài liệu hướng dẫn của MoMo Developers).</li>
+                                    <li>Thiết kế front-end (Danh mục sản phẩm, giỏ hàng, menu, ...)</li>
+                                    <li>Xây dựng giao diện (Silebar, vẽ biểu đồ)</li>
+                                    <li>Thiết kế Database</li>
+                                </ul>
+                                <li>Lập trình website bán đồ công nghệ bằng công nghệ PHP và Laravel Framework</li>
+                                <ul>
+                                    <li>Xây dựng front-end cho website từ trang chủ, danh mục sản phẩm, giỏ hàng, menu, ...</li>
+                                    <li>Thiết kế Database qua PhpMyAdmin</li>
+                                    <li>Xây dựng chức năng quản lý, thêm, xoá, sửa, thanh toán sản phẩm</li>
+                                </ul>
+                                <li>Lập trình game Đua xe 2D Plaformer bằng công nghệ C# Unity</li>
+                                <ul>
+                                    <li>Làm AI cho bot (Giải thuật tìm kiếm A*), thiết kế màn chơi (các level, các chướng ngại vật, logic và thử thách), thiết lập quy tắc chơi (chạy tới số vòng quy định thì về đích)</li>
+                                </ul>
+                                <li>Lập trình website quản lý công việc bằng công nghệ PHP và Laravel</li>
+                                <ul>
+                                    <li>Xây dựng front-end cho website từ trang chủ, danh mục công việc, menu, ...</li>
+                                    <li>Thiết kế Database qua PhpMyAdmin</li>
+                                    <li>Xây dựng chức năng quản lý, thêm, xoá, sửa công việc</li>
+                                </ul>
+                                <li>Đồ án tốt nghiệp: Xây dựng website TvChill xem phim trực tuyến bằng công nghệ PHP và Laravel Framework</li>
+                                <ul>
+                                    <li>Xây dựng 2 website chính: Website người dùng và Website quản lý</li>
+                                    <li>Thực hiện khảo sát thực tế, phân tích thiết kế hệ thống</li>
+                                    <li>Xây dựng front-end cho website từ trang chủ, danh mục phim, chi tiết phim, menu, ...</li>
+                                    <li>Thiết kế Database qua PhpMyAdmin</li>
+                                    <li>Xây dựng chức năng quản lý, thêm, xoá, sửa phim, danh mục phim, tài khoản, bình luận</li>
+                                    <li>Xây dựng chức năng người dùng: Tìm kiếm, lọc phim, xem phim, danh sách phim hot, ...</li>
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="row-infomation">
+                        <div class="row-infomation-item-knlv">
+                            <p>Thực tập sinh Front-End</p>
+                            <time>01/2023 - 03/2023</time>
+                        </div>
+                        <div>
+                            <p>FPT Software</p>
+                        </div>
+                        <div>
+                            <ul>
+                                <li>Tham gia khoá đoạ tạo về lập trình Front-End</li>
+                                <li>Xây dựng giao diện các website theo quá trình đào tạo</li>
+                                <li>Thực hiện dự án cá nhân với công nghệ Bootstrap 5 và JavaScript</li>
+                                <li>Tham gia bảo vệ khoá thực tập</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row-infomation">
+                        <div class="row-infomation-item-knlv">
+                            <p>Game Developer</p>
+                            <time>07/2023 - Nay</time>
+                        </div>
+                        <div>
+                            <p>Công ty cổ phần mạng trực tuyến META</p>
+                        </div>
+                        <div>
+                            <ul>
+                                <li>Nghiên cứu phát triển các dự án game HTML5 Multiplaform</li>
+                                <li>Xây dựng các trò chơi trên website GameVui.vn</li>
+                                <li>Kiểm thử trò chơi</li>
+                                <li>Biên tập, biên dịch trò chơi HTML5</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row-infomation">
+                        <div class="row-infomation-item-knlv">
+                            <p>Tự học và một số dự án cá nhân</p>
+                            <time>07/2023 - Nay</time>
+                        </div>
+                        <div>
+                            <div>Học tập và phát triển các dự án sử dụng .Net, C#</div>
+                            <div>Một số dự án cá nhân</div>
+                            <ul>
+                                <li>Website A</li>
+                                <ul>
+                                    <li>Công nghệ sử dụng:</li>
+                                    <li>Link GitHub: </li>
+                                </ul>
+                                <li>Website B</li>
+                                <ul>
+                                    <li>Công nghệ sử dụng:</li>
+                                    <li>Link GitHub: </li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row-infomation">
+                        <div class="row-infomation-item-knlv">
+                            <p>Sinh viên</p>
+                            <time>10/2019 - 07/2023</time>
+                        </div>
+                        <div>
+                            <p>Đại học giao thông vận tải</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Nét gạch-->
+                <hr />
+                <!--Hoạt động-->
+                <div class="row-right">
+                    <h3>Học vấn</h3>
+                    <div class="row-infomation">
+                        <div class="row-infomation-item-hocvan">
+                            <p>Trường đại học giao thông vận tải</p>
+                            <time>10/2019 - 04/2024</time>
+                        </div>
+                        <div>
+                            <p>Nghành công nghệ thông tin</p>
+                        </div>
+                        <div>
+                            <p>Tốt nghiệp bằng: Khá</p>
+                        </div>
+                        <div>
+                            <p>2.69/4</p>
+                        </div>
                     </div>
                 </div>
             </div>
