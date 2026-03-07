@@ -18,6 +18,36 @@
     />
   </head>
   <body>
+    <video
+      id="cyberpunkBg"
+      class="cyberpunk-bg"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+    >
+      <source src="assets/frame/cyberpunk.mp4" type="video/mp4" />
+      <source src="assets/cyberpunk.mp4" type="video/mp4" />
+    </video>
+    <div class="cyberpunk-overlay" aria-hidden="true"></div>
+
+    <audio id="backgroundMusic" loop preload="none">
+      <source src="music/background.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button
+      id="musicToggle"
+      class="music-toggle"
+      type="button"
+      aria-label="Bật nhạc nền"
+      aria-pressed="false"
+      title="Bật/Tắt nhạc nền"
+    >
+      <i class="bi bi-music-note-beamed"></i>
+    </button>
+
     <button
       id="themeToggle"
       class="theme-toggle"
@@ -32,12 +62,8 @@
     <div class="container cv-container">
       <aside class="col-left">
         <div class="row-name reveal">
-          <span class="badge-role">Game Developer</span>
+          <span class="badge-role">Developer</span>
           <h1>Hà Ngọc Hưng</h1>
-          <p>
-            Xây dựng sản phẩm game web mượt, trực quan và có trải nghiệm người
-            dùng tốt.
-          </p>
         </div>
 
         <div class="avatar-wrap reveal">
@@ -64,7 +90,11 @@
           </div>
           <div class="row-infomation-item">
             <i class="bi bi-envelope-at-fill"></i>
-            <a href="mailto:hangochung3006@gmail.com">hangochung3006@gmail.com</a>
+            <p>hangochung3006@gmail.com</p>
+          </div>
+          <div class="row-infomation-item">
+            <i class="bi bi-globe"></i>
+            <a href="https://github.com/hangochung3006">Github</a>
           </div>
           <div class="row-infomation-item">
             <i class="bi bi-geo-alt-fill"></i>
@@ -89,7 +119,7 @@
 
           <div class="skill-card">
             <div class="skill-meta">
-              <span>HTML5 Game Integration</span>
+              <span>HTML5 Game</span>
               <span>88%</span>
             </div>
             <div class="skill-progress">
@@ -110,10 +140,20 @@
           <div class="skill-card">
             <div class="skill-meta">
               <span>Laravel / PHP</span>
-              <span>75%</span>
+              <span>70%</span>
             </div>
             <div class="skill-progress">
-              <span data-progress="75"></span>
+              <span data-progress="70"></span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-meta">
+              <span>English</span>
+              <span>65%</span>
+            </div>
+            <div class="skill-progress">
+              <span data-progress="65"></span>
             </div>
           </div>
 
@@ -147,13 +187,20 @@
           <div class="row-infomation">
             <ul>
               <li>
-                Trở thành lập trình viên với tinh thần ham học hỏi. Mong muốn được trải nghiệm môi trường làm việc chuyên nghiệp. Tận dụng những kỹ năng, kinh nghiệm của bản thân để đem lại nhiều đóng góp cho công ty nhất có thể.
+                Trở thành lập trình viên với tinh thần ham học hỏi. Mong muốn
+                được trải nghiệm môi trường làm việc chuyên nghiệp. Tận dụng
+                những kỹ năng, kinh nghiệm của bản thân để đem lại nhiều đóng
+                góp cho công ty nhất có thể.
               </li>
               <li>
-                Mục tiêu ngắn hạn: Sau 3 tháng có thể áp dụng những kiến thức và kỹ năng mà bản thân có về ngành Công nghệ thông tin để thành thạo các công việc cơ bản của một lập trình viên.
+                Mục tiêu ngắn hạn: Sau 3 tháng có thể áp dụng những kiến thức và
+                kỹ năng mà bản thân có về ngành Công nghệ thông tin để thành
+                thạo các công việc cơ bản của một lập trình viên.
               </li>
               <li>
-                Mục tiêu dài hạn: Trong 3 năm tới cố gắng trở thành một nhân viên xuất sắc và là một trong những lập trình viên cốt cán của công ty.
+                Mục tiêu dài hạn: Trong 3 năm tới cố gắng trở thành một nhân
+                viên xuất sắc và là một trong những lập trình viên cốt cán của
+                công ty.
               </li>
             </ul>
           </div>
@@ -172,7 +219,7 @@
           </div>
         </section>
 
-        <section class="row-right reveal">
+        <section class="row-right reveal" id="work-experience">
           <h3>Kinh nghiệm làm việc</h3>
 
           <div class="timeline">
@@ -181,23 +228,114 @@
               <div class="timeline-content">
                 <div class="row-infomation-item-knlv">
                   <p>Sinh viên</p>
-                  <time>07/2023 - Nay</time>
+                  <time>10/2019 - 04/2024</time>
                 </div>
-                <p class="timeline-subtitle">
-                  Đại học Giao thông vận tải
-                </p>
+                <p class="timeline-subtitle">Đại học Giao thông vận tải</p>
                 <ul>
+                  <li><b>Website bán sách – C# .NET</b></li>
                   <li>
-                    Nghiên cứu và phát triển các dự án game HTML5 đa nền tảng.
+                    Tham gia phát triển website bán sách trực tuyến và trang
+                    quản trị dành cho quản trị viên.
                   </li>
                   <li>
-                    Xây dựng và tối ưu gameplay cho các trò chơi trên
-                    GameVui.vn.
+                    Tích hợp thanh toán với MoMo (Cấu hình API theo tài liệu
+                    hướng dẫn của MoMo Developers).
                   </li>
                   <li>
-                    Kiểm thử, phát hiện lỗi và cải thiện trải nghiệm người chơi.
+                    Thiết kế giao diện người dùng bao gồm các chức năng như:
+                    danh mục sản phẩm, giỏ hàng, menu điều hướng và các trang
+                    hiển thị sản phẩm.
                   </li>
-                  <li>Biên tập và bản địa hóa nội dung trò chơi HTML5.</li>
+                  <li><b>Ứng dụng quản lý sinh viên – Oracle APEX</b></li>
+                  <li>
+                    <li>
+                      Phát triển ứng dụng quản lý thông tin sinh viên trên nền
+                      tảng Oracle APEX.
+                    </li>
+                    <li>
+                      Thiết kế cơ sở dữ liệu phục vụ việc lưu
+                      trữ và quản lý dữ liệu sinh viên.
+                    </li>
+                    <li>
+                      Xây dựng giao diện quản lý
+                      với sidebar và các biểu đồ thống kê nhằm hỗ trợ việc theo
+                      dõi và phân tích dữ liệu.
+                    </li>
+                  </li>
+                  <li>
+                    <b
+                      >Website bán thiết bị công nghệ – PHP & Laravel
+                      Framework</b
+                    >
+                  </li>
+                  <li>
+                    <li>
+                       Phát triển giao diện người dùng với các thành phần như danh
+                      mục sản phẩm, giỏ hàng và menu điều hướng.
+                    </li>
+                    <li>
+                      Thiết kế và quản
+                      lý cơ sở dữ liệu bằng công cụ phpMyAdmin.
+                    </li>
+                  </li>
+                  <li><b>Game đua xe 2D Platformer – C#</b></li>
+                  <li>
+                   <li>
+                      Phát triển game đua xe 2D theo phong cách platformer.
+                      Xây dựng trí tuệ nhân tạo cho nhân vật bot bằng thuật toán tìm
+                      đường A*.
+                   </li>
+                  <li>
+                      Thiết kế các màn chơi bao gồm bản đồ, chướng ngại
+                      vật và xây dựng luật chơi (hoàn thành sau khi chạy đủ ba
+                      vòng đua).
+                  </li>
+                  </li>
+                  <li>
+                    <b>
+                      Đồ án tốt nghiệp: Website xem phim trực tuyến TvChill –
+                      PHP & Laravel Framework.
+                    </b>
+                  </li>
+                  <li>
+                    <li>
+                      Xây dựng hệ thống website xem phim trực tuyến bao gồm trang
+                      dành cho người dùng và trang quản trị.
+                    </li>
+                    <li>
+                      Thực hiện khảo sát thực tế, phân tích và thiết kế hệ thống trước khi tiến hành
+                      phát triển.
+                    </li>
+                    <li>
+                      Thiết kế giao diện với màu sắc phù hợp, đảm bảo
+                      khả năng hiển thị responsive trên điện thoại, máy tính bảng
+                      và máy tính để bàn bằng Bootstrap 5.
+                    </li>
+                    <li>Chức năng dành cho người dùng:</li>
+                    <li>
+                      Tìm kiếm phim theo tên. Lọc phim theo nhiều tiêu
+                      chí như quốc gia, thể loại và danh mục bằng thư viện
+                      Datatables.net.
+                    </li>
+                    <li>
+                      Xem phim trực tuyến trên website. Hiển thị
+                      danh sách phim nổi bật theo ngày, tuần và tháng.
+                    </li>
+                    <li>Chức năng dành cho quản trị viên:</li>
+                    <li>
+                      Quản lý toàn bộ thông tin phim bao
+                      gồm thêm, sửa, xoá dữ liệu.
+                    </li>
+                    <li>
+                      Quản lý tập phim, thể loại, quốc
+                      gia và danh mục phim.
+                    </li>
+                    <li>
+                      Cập nhật trạng thái phim (phim lẻ,
+                      phim bộ, trailer, phim nổi bật) và thời gian cập nhật nội
+                      dung.
+                    </li>
+                  </li>
                 </ul>
               </div>
             </article>
@@ -209,21 +347,49 @@
                   <p>Thực tập sinh</p>
                   <time>09/01/2023 - 01/03/2023</time>
                 </div>
-                <p class="timeline-subtitle">
-                  FPT Software
-                </p>
+                <p class="timeline-subtitle">FPT Software</p>
                 <ul>
                   <li>
-                    Nghiên cứu và phát triển các dự án game HTML5 đa nền tảng.
+                    Tham gia chương trình đào tạo thực tập sinh về phát triển
+                    giao diện người dùng (Front-end Development) theo quy trình
+                    đào tạo của công ty.
                   </li>
                   <li>
-                    Xây dựng và tối ưu gameplay cho các trò chơi trên
-                    GameVui.vn.
+                    Tìm hiểu và thực hành các kiến thức cơ bản về HTML, CSS,
+                    JavaScript và Bootstrap 5 để xây dựng giao diện web hiện đại
+                    và thân thiện với người dùng.
                   </li>
                   <li>
-                    Kiểm thử, phát hiện lỗi và cải thiện trải nghiệm người chơi.
+                    Xây dựng và hoàn thiện nhiều giao diện website theo các bài
+                    tập và dự án trong chương trình đào tạo, bao gồm các thành
+                    phần như navbar, sidebar, form nhập liệu, bảng dữ liệu và
+                    trang hiển thị nội dung.
                   </li>
-                  <li>Biên tập và bản địa hóa nội dung trò chơi HTML5.</li>
+                  <li>
+                    Áp dụng Bootstrap 5 để thiết kế giao diện responsive, đảm
+                    bảo khả năng hiển thị tốt trên nhiều kích thước màn hình như
+                    máy tính, tablet và điện thoại di động.
+                  </li>
+                  <li>
+                    Thực hành xây dựng các thành phần giao diện có tính tương
+                    tác bằng JavaScript như xử lý sự kiện, kiểm tra dữ liệu nhập
+                    (form validation) và cập nhật nội dung động trên trang.
+                  </li>
+                  <li>
+                    Làm quen với quy trình phát triển phần mềm trong môi trường
+                    doanh nghiệp, bao gồm việc tiếp nhận yêu cầu, triển khai
+                    giao diện theo thiết kế và kiểm thử giao diện trước khi hoàn
+                    thiện.
+                  </li>
+                  <li>
+                    Rèn luyện kỹ năng tối ưu giao diện và trải nghiệm người dùng
+                    (UI/UX) thông qua việc cải thiện bố cục, màu sắc và khả năng
+                    sử dụng của website.
+                  </li>
+                  <li>
+                    Chủ động nghiên cứu tài liệu và công nghệ mới nhằm nâng cao
+                    kỹ năng phát triển Front-end trong quá trình thực tập.
+                  </li>
                 </ul>
               </div>
             </article>
@@ -240,16 +406,87 @@
                 </p>
                 <ul>
                   <li>
-                    Nghiên cứu và phát triển các dự án game HTML5 đa nền tảng.
+                    Tham gia phát triển và triển khai các trò chơi HTML5 đa nền
+                    tảng, tối ưu để hoạt động mượt mà trên trình duyệt desktop
+                    và thiết bị di động.
                   </li>
                   <li>
-                    Xây dựng và tối ưu gameplay cho các trò chơi trên
-                    GameVui.vn.
+                    Thiết kế và xây dựng gameplay mechanics, logic trò chơi,
+                    luật chơi và hệ thống điểm số nhằm tạo trải nghiệm hấp dẫn
+                    cho người chơi.
                   </li>
                   <li>
-                    Kiểm thử, phát hiện lỗi và cải thiện trải nghiệm người chơi.
+                    Phát triển game sử dụng JavaScript, HTML5 Canvas và
+                    framework Phaser.js, xử lý các thành phần như animation,
+                    physics, collision detection và tương tác trong game.
                   </li>
-                  <li>Biên tập và bản địa hóa nội dung trò chơi HTML5.</li>
+                  <li>
+                    Nghiên cứu và triển khai các giải pháp tối ưu hiệu năng
+                    game, giảm tải tài nguyên và cải thiện tốc độ tải trang nhằm
+                    đảm bảo trải nghiệm mượt trên thiết bị cấu hình thấp.
+                  </li>
+                  <li>
+                    Áp dụng tư duy Mobile-First trong thiết kế gameplay và giao
+                    diện để phù hợp với người chơi trên smartphone.
+                  </li>
+                  <li>
+                    Tham gia xây dựng và cải tiến hệ thống website GameVui.vn,
+                    tích hợp và quản lý các trò chơi trên nền tảng.
+                  </li>
+                  <li>
+                    Thực hiện kiểm thử gameplay (game testing): kiểm tra các
+                    trường hợp phát sinh trong game, phát hiện lỗi và đảm bảo
+                    tính ổn định trước khi phát hành.
+                  </li>
+                  <li>
+                    Tối ưu trải nghiệm người chơi thông qua việc điều chỉnh độ
+                    khó, cân bằng gameplay và cải thiện phản hồi điều khiển.
+                  </li>
+                  <li>
+                    Quản lý và cập nhật nội dung game trên website, bao gồm biên
+                    tập thông tin trò chơi, hình ảnh và video giới thiệu.
+                  </li>
+                  <li>
+                    Sử dụng các công cụ AI hỗ trợ phát triển game nhằm tăng tốc
+                    quá trình xây dựng prototype, viết logic và tạo asset đơn
+                    giản.
+                  </li>
+                  <li>
+                    Phối hợp với đội ngũ nội dung để lựa chọn, phát triển và tối
+                    ưu các trò chơi phù hợp với người dùng của nền tảng.
+                  </li>
+                </ul>
+                <ul>
+                  <strong>Kỹ năng phát triển game</strong>
+                  <ul>
+                    <b>Ngôn ngữ lập trình</b>
+                    <li>JavaScript</li>
+                    <li>C#</li>
+                    <li>ReactJS</li>
+                  </ul>
+                  <ul>
+                    <b>Công nghệ & Framework</b>
+                    <li>Phaser.js</li>
+                    <li>Unity</li>
+                    <li>HTML5 Canvas</li>
+                  </ul>
+                  <ul>
+                    <b>Ngôn ngữ lập trình</b>
+                    <li>Gameplay Design</li>
+                    <li>Game Logic Development</li>
+                    <li>Level Design</li>
+                    <li>Collision Detection</li>
+                    <li>Collision Detection</li>
+                    <li>Game Testing & Debugging</li>
+                  </ul>
+                  <ul>
+                    <b>Công cụ</b>
+                    <li>Git</li>
+                    <li>Photoshop (chỉnh sửa asset cơ bản)</li>
+                    <li>Capcut (tạo animation hoặc làm video giới thiệu)</li>
+                    <li>AI tools hỗ trợ phát triển game (Cursor, Google AI)</li>
+                    <li>Tiled (Thiết kế map chơi)</li>
+                  </ul>
                 </ul>
               </div>
             </article>
@@ -258,26 +495,184 @@
               <div class="timeline-dot"></div>
               <div class="timeline-content">
                 <div class="row-infomation-item-knlv">
-                  <p>Dự án cá nhân & học tập</p>
+                  <p>Tự học và phát triển chuyên môn</p>
                   <time>10/2019 - Nay</time>
                 </div>
                 <ul>
+                  <strong>Tự học và tìm hiểu</strong>
                   <li>
-                    Phát triển game đua xe 2D bằng Unity (AI bot với giải thuật
-                    A*).
+                    Luôn chủ động nghiên cứu và học tập các công nghệ lập trình
+                    phục vụ phát triển website và trò chơi trên nền tảng web.
                   </li>
                   <li>
-                    Xây dựng website thương mại điện tử và hệ thống quản trị
-                    bằng C# .NET.
+                    Nắm vững kiến thức cơ bản và lập trình hướng đối tượng (OOP)
+                    với các ngôn ngữ C# và PHP.
                   </li>
                   <li>
-                    Phát triển các dự án Laravel/PHP: quản lý công việc, website
-                    phim trực tuyến.
+                    Phát triển một số website cá nhân và dự án thử nghiệm sử
+                    dụng PHP, Laravel và .NET.
                   </li>
                   <li>
-                    Thiết kế cơ sở dữ liệu và triển khai các chức năng CRUD, tìm
-                    kiếm, lọc dữ liệu.
+                    Thực hành phát triển game HTML5 với framework Phaser.js và
+                    engine Unity.
                   </li>
+                  <li>
+                    Tự xây dựng các mini game và prototype gameplay để nâng cao
+                    kỹ năng thiết kế logic game và tối ưu hiệu năng.
+                  </li>
+                  <li>
+                    Chủ động học tập và rèn luyện thuật toán, tư duy lập trình
+                    thông qua các nền tảng như Codewars và Exercism.
+                  </li>
+                  <li>
+                    Tìm hiểu và ứng dụng các công cụ AI hỗ trợ lập trình nhằm
+                    nâng cao hiệu quả phát triển dự án như Cursor hay Google AI.
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="row-infomation-item-knlv">
+                  <p>Một số dự án cá nhân</p>
+                </div>
+                <ul>
+                  <strong>Cuộc đua thú cưng - Solo Game Developer</strong>
+                  <li>
+                    Link:
+                    <a
+                      href="https://gamevui.vn/cuoc-dua-thu-cung/game"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >https://gamevui.vn/cuoc-dua-thu-cung/game</a
+                    >
+                  </li>
+                  <li>
+                    Thiết kế gameplay thuộc thể loại endless runner, người chơi
+                    điều khiển nhân vật vượt qua các chướng ngại vật trên đường
+                    đua.
+                  </li>
+                  <li>
+                    Xây dựng hệ thống spawn chướng ngại vật, vật phẩm và cơ chế
+                    tăng tốc độ theo thời gian để tăng độ thử thách.
+                  </li>
+                  <li>
+                    Lập trình toàn bộ logic gameplay, va chạm (collision
+                    detection) và hệ thống điểm số.
+                  </li>
+                  <li>
+                    Tối ưu hiệu năng và khả năng tương thích trên trình duyệt
+                    web và thiết bị di động.
+                  </li>
+                  <li>
+                    Tự xây dựng và chỉnh sửa các asset đồ họa cơ bản phục vụ
+                    gameplay.
+                  </li>
+                </ul>
+                <ul>
+                  <strong>Cao thủ bắt số - Solo Game Developer</strong>
+                  <li>
+                    Link:
+                    <a
+                      href="https://gamevui.vn/cao-thu-bat-so/game"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >https://gamevui.vn/cao-thu-bat-so/game</a
+                    >
+                  </li>
+                  <li>
+                    Phát triển game phản xạ nhanh, yêu cầu người chơi nhận diện
+                    và chọn đúng số trong thời gian giới hạn.
+                  </li>
+                  <li>
+                    Thiết kế cơ chế tăng độ khó theo cấp độ và tốc độ hiển thị
+                    số.
+                  </li>
+                  <li>
+                    Xây dựng hệ thống random nội dung và tính điểm theo độ chính
+                    xác của người chơi.
+                  </li>
+                  <li>
+                    Tối ưu trải nghiệm điều khiển và hiển thị trên thiết bị cảm
+                    ứng.
+                  </li>
+                </ul>
+                <ul>
+                  <strong>Nối từ tiếng Việt - Solo Game Developer</strong>
+                  <li>
+                    Link:
+                    <a
+                      href="https://gamevui.vn/noi-tu-tieng-viet/game"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >https://gamevui.vn/noi-tu-tieng-viet/game</a
+                    >
+                  </li>
+                  <li>
+                    Phát triển game trí tuệ ngôn ngữ, người chơi nối các từ
+                    tiếng Việt theo quy tắc cho trước.
+                  </li>
+                  <li>
+                    Xây dựng hệ thống xử lý dữ liệu từ vựng và kiểm tra tính hợp
+                    lệ của chuỗi từ.
+                  </li>
+                  <li>
+                    Thiết kế logic gameplay nhằm tạo sự thử thách và tính giáo
+                    dục cho người chơi.
+                  </li>
+                  <li>
+                    Tối ưu giao diện và trải nghiệm sử dụng trên trình duyệt và
+                    thiết bị di động.
+                  </li>
+                  <li>
+                    Hệ thống tài nguyên, lưu các lựa chọn, đáp án vào json để dễ
+                    mở rộng.
+                  </li>
+                </ul>
+                <ul>
+                  <strong>Bộ não 100% - Solo Game Developer</strong>
+                  <li>
+                    Link:
+                    <a
+                      href="https://gamevui.vn/bo-nao-100/game"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >https://gamevui.vn/bo-nao-100/game</a
+                    >
+                  </li>
+                  <li>
+                    Phát triển game giải đố và kiểm tra phản xạ trí não với
+                    nhiều dạng câu hỏi khác nhau.
+                  </li>
+                  <li>
+                    Xây dựng hệ thống logic câu hỏi, kiểm tra đáp án và tính
+                    điểm theo thời gian phản hồi của người chơi.
+                  </li>
+                  <li>
+                    Thiết kế giao diện game đơn giản, dễ tiếp cận nhằm tối ưu
+                    trải nghiệm trên mobile-first.
+                  </li>
+                  <li>
+                    Tối ưu quá trình tải và hiển thị game trên các trình duyệt
+                    phổ biến.
+                  </li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="row-infomation-item-knlv">
+                  <p>Danh hiệu và giải thưởng</p>
+                </div>
+                <ul>
+                  <strong>
+                    Nhân viên xuất sắc của năm tại Công ty cổ phần mạng trực
+                    tuyến META
+                  </strong>
+                  <img src="assets/img/toi2.JPG" alt="Danh hiệu 1" />
                 </ul>
               </div>
             </article>

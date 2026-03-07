@@ -6,6 +6,7 @@
     --card-bg: rgba(12, 21, 40, 0.96);
     --surface-bg: #16233f;
     --text-main: #deebff;
+    --text-secondary: #d0d7e8;
     --text-soft: #97acd1;
     --primary: #00a6c9;
     --primary-soft: #7ae5ff;
@@ -24,6 +25,7 @@ body.light-mode {
     --card-bg: rgba(255, 255, 255, 0.94);
     --surface-bg: #ffffff;
     --text-main: #1d2a44;
+    --text-secondary: #445575;
     --text-soft: #4d5d7a;
     --heading: #0f4f66;
     --border-soft: rgba(10, 31, 68, 0.08);
@@ -45,18 +47,114 @@ body {
     min-height: 100vh;
     padding: 32px 16px;
     transition: background 0.5s ease, color 0.35s ease;
+    position: relative;
+    isolation: isolate;
+    --parallax-x: 0px;
+    --parallax-y: 0px;
+    --scroll-shift: 0px;
+}
+
+/* Video nền cyberpunk chỉ dùng cho dark mode */
+.cyberpunk-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -4;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+}
+
+.cyberpunk-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    opacity: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 12% 10%, rgba(20, 31, 56, 0.45), transparent 35%),
+        linear-gradient(180deg, rgba(6, 12, 22, 0.56), rgba(6, 13, 26, 0.72));
+    transition: opacity 0.45s ease;
+}
+
+body:not(.light-mode) .cyberpunk-bg,
+body:not(.light-mode) .cyberpunk-overlay {
+    opacity: 1;
+}
+
+/* Nền vũ trụ nhẹ bằng CSS thuần: sao + nebula, không dùng CDN */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: -6%;
+    pointer-events: none;
+    z-index: -2;
+}
+
+body::before {
+    background:
+        radial-gradient(2px 2px at 12% 18%, rgba(255, 255, 255, 0.9), transparent 70%),
+        radial-gradient(1.5px 1.5px at 32% 72%, rgba(199, 239, 255, 0.82), transparent 70%),
+        radial-gradient(1.5px 1.5px at 56% 20%, rgba(255, 255, 255, 0.8), transparent 70%),
+        radial-gradient(2px 2px at 78% 60%, rgba(163, 232, 255, 0.88), transparent 70%),
+        radial-gradient(1.5px 1.5px at 88% 30%, rgba(255, 255, 255, 0.75), transparent 70%),
+        radial-gradient(1.5px 1.5px at 22% 46%, rgba(141, 227, 255, 0.72), transparent 70%);
+    opacity: 0.8;
+    transform: translate3d(var(--parallax-x), var(--parallax-y), 0);
+    animation: cosmic-twinkle 7.8s ease-in-out infinite alternate;
+}
+
+body::after {
+    z-index: -1;
+    background:
+        radial-gradient(circle at 24% 16%, rgba(84, 170, 255, 0.11), transparent 35%),
+        radial-gradient(circle at 78% 86%, rgba(44, 196, 239, 0.12), transparent 38%),
+        radial-gradient(circle at 84% 24%, rgba(151, 98, 255, 0.08), transparent 34%);
+    filter: blur(2px);
+    transform: translate3d(calc(var(--parallax-x) * -0.75), calc(var(--scroll-shift) * 0.5), 0);
+    animation: cosmic-drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes cosmic-twinkle {
+    0% {
+        opacity: 0.55;
+    }
+    100% {
+        opacity: 0.9;
+    }
+}
+
+@keyframes cosmic-drift {
+    0% {
+        transform: translate3d(calc(var(--parallax-x) * -0.4), calc(var(--scroll-shift) * 0.35), 0)
+            scale(1);
+    }
+    100% {
+        transform: translate3d(calc(var(--parallax-x) * -0.9), calc(var(--scroll-shift) * 0.55), 0)
+            scale(1.02);
+    }
 }
 
 .cv-container {
     display: flex;
+    align-items: flex-start;
     gap: 24px;
-    max-width: 1200px;
+    width: 100% !important;
+    max-width: 1200px !important;
     margin: 0 auto;
     padding: 24px;
     border-radius: var(--radius-xl);
     background: var(--shell-bg);
     backdrop-filter: blur(6px);
     transition: background-color 0.35s ease;
+}
+
+/* Ghi đè giới hạn mặc định của Bootstrap .container để tránh bị rộng 1320px */
+.container.cv-container {
+    max-width: 1200px !important;
 }
 
 .cv-container h1,
@@ -69,11 +167,20 @@ body {
     font-weight: 700;
 }
 
+.cv-container p,
+.cv-container li,
+.cv-container a,
+.cv-container time {
+    letter-spacing: 0.1px;
+    color: var(--text-secondary);
+}
+
 .col-left,
 .col-right {
     border-radius: var(--radius-lg);
-    background: var(--card-bg);
-    box-shadow: var(--shadow-soft);
+    background: linear-gradient(165deg, color-mix(in oklab, var(--card-bg) 88%, transparent), var(--card-bg));
+    box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid color-mix(in oklab, var(--border-soft) 88%, transparent);
 }
 
 .col-left {
@@ -88,6 +195,7 @@ body {
 .col-right {
     flex: 1.85;
     padding: 24px;
+    min-width: 0;
 }
 
 .theme-toggle {
@@ -106,6 +214,61 @@ body {
     box-shadow: var(--shadow-soft);
     cursor: pointer;
     transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.music-toggle {
+    position: fixed;
+    right: 16px;
+    top: 64px;
+    z-index: 22;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(122, 229, 255, 0.38);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #9eeeff;
+    background: rgba(13, 24, 44, 0.56);
+    backdrop-filter: blur(8px);
+    box-shadow:
+        0 0 0 1px rgba(122, 229, 255, 0.2) inset,
+        0 0 16px rgba(0, 166, 201, 0.25),
+        0 10px 22px rgba(0, 0, 0, 0.26);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    cursor: pointer;
+    transition: transform 0.26s ease, box-shadow 0.26s ease, background-color 0.26s ease, opacity 0.26s ease;
+}
+
+.music-toggle i {
+    font-size: 1rem;
+}
+
+.music-toggle:hover {
+    transform: translateY(8px) scale(1.04);
+    background: rgba(18, 34, 60, 0.68);
+    box-shadow:
+        0 0 0 1px rgba(122, 229, 255, 0.24) inset,
+        0 0 22px rgba(122, 229, 255, 0.32),
+        0 12px 24px rgba(0, 0, 0, 0.32);
+}
+
+.music-toggle.is-playing {
+    color: #6ad8ff;
+    border-color: rgba(106, 216, 255, 0.46);
+    box-shadow:
+        0 0 0 1px rgba(106, 216, 255, 0.28) inset,
+        0 0 24px rgba(106, 216, 255, 0.42),
+        0 12px 24px rgba(0, 0, 0, 0.34);
+}
+
+/* Nút nhạc chỉ hiển thị trong dark mode */
+body:not(.light-mode) .music-toggle {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .theme-toggle i {
@@ -139,6 +302,35 @@ body {
 
 .avatar-wrap {
     margin: 20px 0;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 252px;
+    height: 252px;
+}
+
+/* Frame avatar chỉ hiển thị ở dark mode */
+.avatar-wrap::after {
+    content: "";
+    position: absolute;
+    inset: -12px;
+    background: url("frame/frame1.png") center / contain no-repeat;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    transform: scale(0.98);
+    filter: drop-shadow(0 0 10px rgba(88, 215, 255, 0.28));
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+body:not(.light-mode) .avatar-wrap::after {
+    opacity: 1;
+}
+
+body:not(.light-mode) .avatar-wrap:hover::after {
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 14px rgba(122, 229, 255, 0.35));
 }
 
 .row-img {
@@ -151,6 +343,8 @@ body {
     transform: scale(0.94);
     opacity: 0;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
+    position: relative;
+    z-index: 1;
 }
 
 /* Hiệu ứng xuất hiện avatar khi trang tải xong */
@@ -182,6 +376,31 @@ body {
 
 .row-infomation h3 {
     margin-bottom: 14px;
+}
+
+/* Làm nổi bật tiêu đề section bằng accent line */
+.row-right > h3,
+.row-infomation > h3 {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-left: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.row-right > h3::before,
+.row-infomation > h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 1.1em;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--primary-soft), var(--primary));
 }
 
 .row-infomation-item {
@@ -220,7 +439,7 @@ body {
 }
 
 .skill-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     background-color: rgba(0, 166, 201, 0.03);
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
 }
@@ -268,11 +487,15 @@ body {
 
 .row-right {
     border: 1px solid var(--border-soft);
-    border-radius: 14px;
+    border-radius: 12px;
     padding: 18px;
     margin-bottom: 18px;
-    background: var(--surface-bg);
-    transition: background-color 0.35s ease, border-color 0.35s ease;
+    background: linear-gradient(
+        165deg,
+        color-mix(in oklab, var(--surface-bg) 91%, rgba(255, 255, 255, 0.02)),
+        color-mix(in oklab, var(--surface-bg) 98%, rgba(0, 0, 0, 0.04))
+    );
+    transition: transform 0.28s ease, box-shadow 0.28s ease, background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .row-right:last-child {
@@ -280,6 +503,50 @@ body {
 }
 
 .row-right ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+/* Tối ưu list cho dễ đọc hơn và tạo cảm giác hiện đại */
+.row-right li,
+.timeline-content li,
+.accordion-inner-list li {
+    margin-bottom: 6px;
+    line-height: 1.75;
+    position: relative;
+    padding-left: 2px;
+}
+
+.row-right li::marker,
+.timeline-content li::marker,
+.accordion-inner-list li::marker {
+    color: color-mix(in oklab, var(--primary-soft) 80%, var(--primary));
+}
+
+/* Bullet tùy chỉnh mềm hơn cho giao diện dark */
+.row-right ul:not(.skill-progress) > li::before,
+.timeline-content ul > li::before,
+.accordion-inner-list > li::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--primary-soft), var(--primary));
+    box-shadow: 0 0 0 4px rgba(122, 229, 255, 0.08);
+    vertical-align: middle;
+}
+
+.row-right ul > li,
+.timeline-content ul > li,
+.accordion-inner-list > li {
+    list-style: none;
+}
+
+.row-right li:last-child,
+.timeline-content li:last-child,
+.accordion-inner-list li:last-child {
     margin-bottom: 0;
 }
 
@@ -342,20 +609,215 @@ body {
 .timeline-content {
     border: 1px solid var(--border-soft);
     border-radius: 12px;
-    background: var(--surface-bg);
+    background: linear-gradient(
+        165deg,
+        color-mix(in oklab, var(--surface-bg) 92%, rgba(255, 255, 255, 0.02)),
+        color-mix(in oklab, var(--surface-bg) 99%, rgba(0, 0, 0, 0.03))
+    );
     padding: 14px;
-    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .timeline-content:hover {
-    transform: translateX(4px);
+    transform: translateY(-2px) translateX(2px);
     background-color: rgba(0, 166, 201, 0.03);
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 166, 201, 0.28);
 }
 
 .timeline-subtitle {
     margin: 8px 0 10px;
     color: var(--text-soft);
+}
+
+/* Nút và vùng thu gọn/mở rộng cho phần kinh nghiệm dài */
+.accordion-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    padding: 6px 10px;
+    margin-top: 8px;
+    color: var(--text-main);
+    background: rgba(0, 166, 201, 0.08);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.accordion-toggle:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 166, 201, 0.14);
+    box-shadow: 0 8px 16px rgba(0, 166, 201, 0.16);
+}
+
+.accordion-toggle .accordion-arrow {
+    font-size: 0.85rem;
+    color: var(--primary-soft);
+    transition: transform 0.25s ease;
+}
+
+.accordion-toggle[aria-expanded="true"] .accordion-arrow {
+    transform: translateY(-1px);
+}
+
+.accordion-title-row,
+.project-main-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    list-style-position: outside;
+}
+
+.accordion-title-row > .accordion-toggle {
+    margin-top: 0;
+}
+
+.accordion-panel,
+.accordion-panel-block {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.accordion-panel {
+    margin-top: 0;
+    list-style-type: none;
+}
+
+.accordion-inner-list {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.accordion-panel-block {
+    margin-top: 0;
+}
+
+.accordion-panel.is-open,
+.accordion-panel-block.is-open {
+    opacity: 1;
+    margin-top: 8px;
+}
+
+.accordion-group {
+    margin-top: 10px;
+}
+
+.accordion-heading {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--text-main) !important;
+    transition: color 0.22s ease, transform 0.22s ease;
+}
+
+.accordion-heading:hover {
+    color: var(--primary-soft);
+    transform: translateX(2px);
+}
+
+.row-infomation-item a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.22s ease, transform 0.22s ease;
+}
+
+.skill-meta span {
+    color: var(--text-main);
+}
+
+.row-name h1,
+.row-right > h3,
+.row-infomation > h3,
+.row-infomation-item-knlv p {
+    color: var(--heading);
+}
+
+.row-infomation-item a:hover {
+    color: var(--primary-soft);
+    transform: translateX(2px);
+}
+
+/* Ảnh trong timeline (đặc biệt là danh hiệu/giải thưởng) luôn nằm gọn trong card */
+.timeline-content img {
+    display: block;
+    margin-top: 10px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+}
+
+.lightbox-trigger {
+    cursor: zoom-in;
+}
+
+/* Lightbox phóng to ảnh giữa màn hình */
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.74);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease;
+}
+
+.image-lightbox.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    position: relative;
+    width: min(94vw, 1100px);
+    max-height: 92vh;
+    transform: scale(0.94);
+    transition: transform 0.28s ease;
+}
+
+.image-lightbox.is-open .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-image {
+    display: block;
+    width: 100%;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 999px;
+    color: #10233f;
+    background: #ffffff;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+body.lightbox-open {
+    overflow: hidden;
 }
 
 hr {
@@ -374,6 +836,12 @@ hr {
 .reveal.is-show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Card chính nâng nhẹ khi hover, giữ bố cục không thay đổi */
+.row-right:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.11);
 }
 
 @media (max-width: 992px) {
@@ -408,6 +876,11 @@ hr {
         font-size: 1.7rem;
     }
 
+    .avatar-wrap {
+        width: 184px;
+        height: 184px;
+    }
+
     .row-img {
         width: 160px;
         height: 160px;
@@ -430,5 +903,12 @@ hr {
         right: 10px;
         padding: 7px 10px;
         font-size: 0.9rem;
+    }
+
+    .music-toggle {
+        top: 52px;
+        right: 10px;
+        width: 42px;
+        height: 42px;
     }
 }
