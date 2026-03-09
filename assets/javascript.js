@@ -4,7 +4,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const backgroundMusic = document.getElementById("backgroundMusic");
   const cyberpunkBgVideo = document.getElementById("cyberpunkBg");
   const THEME_STORAGE_KEY = "portfolio-theme";
+  const MUSIC_DISABLED_KEY = "music-disabled-by-user";
+  let isMusicManuallyDisabled =
+    window.localStorage.getItem(MUSIC_DISABLED_KEY) === "true";
   let isMusicPlaying = false;
+
+  const updateMusicToggleUI = (isPlaying) => {
+    if (!musicToggleButton) {
+      return;
+    }
+
+    const icon = musicToggleButton.querySelector(".music-icon");
+    musicToggleButton.classList.toggle("is-playing", isPlaying);
+    musicToggleButton.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+    musicToggleButton.setAttribute(
+      "aria-label",
+      isPlaying ? "Tắt nhạc nền" : "Bật nhạc nền",
+    );
+
+    if (icon) {
+      icon.textContent = isPlaying ? "🔊" : "🔇";
+    }
+  };
+
+  const playMusicIfAllowed = async () => {
+    if (!backgroundMusic || document.body.classList.contains("light-mode")) {
+      updateMusicToggleUI(false);
+      isMusicPlaying = false;
+      return;
+    }
+
+    if (isMusicManuallyDisabled) {
+      updateMusicToggleUI(false);
+      isMusicPlaying = false;
+      return;
+    }
+
+    try {
+      backgroundMusic.volume = 0.2;
+      await backgroundMusic.play();
+      isMusicPlaying = true;
+      updateMusicToggleUI(true);
+    } catch {
+      isMusicPlaying = false;
+      updateMusicToggleUI(false);
+    }
+  };
 
   // Theme và cập nhật giao diện nút theo trạng thái hiện tại.
   const applyTheme = (theme) => {
@@ -41,35 +86,49 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isLight && backgroundMusic) {
       backgroundMusic.pause();
       isMusicPlaying = false;
-      if (musicToggleButton) {
-        musicToggleButton.classList.remove("is-playing");
-        musicToggleButton.setAttribute("aria-pressed", "false");
-        musicToggleButton.setAttribute("aria-label", "Bật nhạc nền");
-        const icon = musicToggleButton.querySelector("i");
-        if (icon) {
-          icon.className = "bi bi-music-note-beamed";
-        }
-      }
+      updateMusicToggleUI(false);
+    } else {
+      // Khi bật dark mode, chỉ tự phát nếu người dùng chưa tắt thủ công trước đó.
+      playMusicIfAllowed();
     }
   };
 
   // Khởi tạo theme: người dùng lần đầu luôn ở light mode.
   const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
   const initialTheme = savedTheme || "light";
+  if (backgroundMusic) {
+    backgroundMusic.volume = 0.2;
+  }
   applyTheme(initialTheme);
 
   if (themeToggleButton) {
-    themeToggleButton.addEventListener("click", () => {
+    themeToggleButton.addEventListener("click", async () => {
       const nextTheme = document.body.classList.contains("light-mode")
         ? "dark"
         : "light";
       applyTheme(nextTheme);
       window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+
+      // Bật thử nhạc ngay trong user gesture khi vừa chuyển sang dark mode.
+      if (nextTheme === "dark") {
+        await playMusicIfAllowed();
+      }
     });
   }
 
   // Điều khiển nhạc nền (không autoplay để tránh bị browser chặn).
   if (musicToggleButton && backgroundMusic) {
+    // Đồng bộ UI theo trạng thái audio thực tế để tránh icon bị sai.
+    backgroundMusic.addEventListener("play", () => {
+      isMusicPlaying = true;
+      updateMusicToggleUI(true);
+    });
+
+    backgroundMusic.addEventListener("pause", () => {
+      isMusicPlaying = false;
+      updateMusicToggleUI(false);
+    });
+
     musicToggleButton.addEventListener("click", async () => {
       if (document.body.classList.contains("light-mode")) {
         return;
@@ -78,29 +137,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isMusicPlaying) {
         backgroundMusic.pause();
         isMusicPlaying = false;
-        musicToggleButton.classList.remove("is-playing");
-        musicToggleButton.setAttribute("aria-pressed", "false");
-        musicToggleButton.setAttribute("aria-label", "Bật nhạc nền");
-        const icon = musicToggleButton.querySelector("i");
-        if (icon) {
-          icon.className = "bi bi-music-note-beamed";
-        }
+        isMusicManuallyDisabled = true;
+        window.localStorage.setItem(MUSIC_DISABLED_KEY, "true");
+        updateMusicToggleUI(false);
         return;
       }
 
-      try {
-        await backgroundMusic.play();
-        isMusicPlaying = true;
-        musicToggleButton.classList.add("is-playing");
-        musicToggleButton.setAttribute("aria-pressed", "true");
-        musicToggleButton.setAttribute("aria-label", "Tắt nhạc nền");
-        const icon = musicToggleButton.querySelector("i");
-        if (icon) {
-          icon.className = "bi bi-pause-fill";
-        }
-      } catch {
-        isMusicPlaying = false;
-      }
+      isMusicManuallyDisabled = false;
+      window.localStorage.setItem(MUSIC_DISABLED_KEY, "false");
+      await playMusicIfAllowed();
     });
   }
 
@@ -499,6 +544,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const updateByScroll = () => {
       root.style.setProperty("--scroll-shift", `${(-window.scrollY * 0.06).toFixed(2)}px`);
+
+      // Blur video nền theo độ cuộn, chỉ áp dụng ở dark mode.
+      const isLight = root.classList.contains("light-mode");
+      const blurValue = isLight ? 0 : Math.min(5, window.scrollY / 220);
+      root.style.setProperty("--video-blur", `${blurValue.toFixed(2)}px`);
+
       ticking = false;
     };
 
@@ -514,6 +565,9 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       { passive: true },
     );
+
+    // Đồng bộ trạng thái blur ngay tại thời điểm khởi tạo.
+    updateByScroll();
   };
 
   // Tạo độ trễ nhẹ theo thứ tự xuất hiện để animation tự nhiên hơn.

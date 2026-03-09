@@ -52,6 +52,7 @@ body {
     --parallax-x: 0px;
     --parallax-y: 0px;
     --scroll-shift: 0px;
+    --video-blur: 0px;
 }
 
 /* Video nền cyberpunk chỉ dùng cho dark mode */
@@ -64,6 +65,9 @@ body {
     z-index: -4;
     opacity: 0;
     pointer-events: none;
+    filter: blur(var(--video-blur));
+    will-change: filter, opacity;
+    transform: translateZ(0);
     transition: opacity 0.45s ease;
 }
 
@@ -79,9 +83,31 @@ body {
     transition: opacity 0.45s ease;
 }
 
+/* Scanline cyberpunk rất nhẹ, chỉ hiện khi dark mode */
+.cyberpunk-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(140, 242, 255, 0.06) 0px,
+        rgba(140, 242, 255, 0.06) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+    mix-blend-mode: screen;
+    transition: opacity 0.35s ease;
+}
+
 body:not(.light-mode) .cyberpunk-bg,
 body:not(.light-mode) .cyberpunk-overlay {
     opacity: 1;
+}
+
+body:not(.light-mode) .cyberpunk-overlay::after {
+    opacity: 0.06;
 }
 
 /* Nền vũ trụ nhẹ bằng CSS thuần: sao + nebula, không dùng CDN */
@@ -175,6 +201,11 @@ body::after {
     color: var(--text-secondary);
 }
 
+.timeline-content strong,
+.timeline-content b {
+    color: var(--text-main);
+}
+
 .col-left,
 .col-right {
     border-radius: var(--radius-lg);
@@ -242,8 +273,9 @@ body::after {
     transition: transform 0.26s ease, box-shadow 0.26s ease, background-color 0.26s ease, opacity 0.26s ease;
 }
 
-.music-toggle i {
-    font-size: 1rem;
+.music-toggle .music-icon {
+    font-size: 1.02rem;
+    line-height: 1;
 }
 
 .music-toggle:hover {
@@ -524,8 +556,8 @@ body:not(.light-mode) .avatar-wrap:hover::after {
 }
 
 /* Bullet tùy chỉnh mềm hơn cho giao diện dark */
-.row-right ul:not(.skill-progress) > li::before,
-.timeline-content ul > li::before,
+.row-right ul:not(.skill-progress) > li:not(.accordion-title-row):not(.accordion-panel)::before,
+.timeline-content ul > li:not(.accordion-title-row):not(.accordion-panel)::before,
 .accordion-inner-list > li::before {
     content: "";
     display: inline-block;
@@ -542,6 +574,18 @@ body:not(.light-mode) .avatar-wrap:hover::after {
 .timeline-content ul > li,
 .accordion-inner-list > li {
     list-style: none;
+}
+
+/* Loại bỏ bullet ở các dòng container của accordion để tránh dấu chấm thừa */
+.accordion-title-row::before,
+.accordion-panel::before {
+    content: none !important;
+    display: none !important;
+}
+
+.accordion-title-row,
+.accordion-panel {
+    padding-left: 0 !important;
 }
 
 .row-right li:last-child,
@@ -842,6 +886,35 @@ hr {
 .row-right:hover {
     transform: translateY(-2px);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.11);
+}
+
+/* Glow cyan tinh tế chỉ khi dark mode */
+body:not(.light-mode) .row-right:hover,
+body:not(.light-mode) .timeline-content:hover,
+body:not(.light-mode) .skill-card:hover,
+body:not(.light-mode) .theme-toggle:hover,
+body:not(.light-mode) .music-toggle:hover,
+body:not(.light-mode) .accordion-toggle:hover {
+    box-shadow:
+        0 0 0 1px rgba(0, 255, 255, 0.14) inset,
+        0 0 16px rgba(0, 255, 255, 0.22),
+        0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+body:not(.light-mode) .row-img:hover {
+    box-shadow:
+        0 0 0 12px rgba(0, 255, 255, 0.12),
+        0 0 18px rgba(0, 255, 255, 0.25),
+        0 20px 40px rgba(0, 0, 0, 0.32);
+}
+
+body:not(.light-mode) .row-right > h3:hover,
+body:not(.light-mode) .row-infomation > h3:hover {
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.32);
+}
+
+body:not(.light-mode) .skill-card:hover .skill-progress span {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.35);
 }
 
 @media (max-width: 992px) {

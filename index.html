@@ -25,7 +25,7 @@
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="none"
       aria-hidden="true"
     >
       <source src="assets/frame/cyberpunk.mp4" type="video/mp4" />
@@ -34,6 +34,7 @@
     <div class="cyberpunk-overlay" aria-hidden="true"></div>
 
     <audio id="backgroundMusic" loop preload="none">
+      <source src="assets/music/Cyperpunk.mp3" type="audio/mpeg" />
       <source src="music/background.mp3" type="audio/mpeg" />
     </audio>
 
@@ -45,7 +46,7 @@
       aria-pressed="false"
       title="Bật/Tắt nhạc nền"
     >
-      <i class="bi bi-music-note-beamed"></i>
+      <span class="music-icon" aria-hidden="true">🔇</span>
     </button>
 
     <button
@@ -71,6 +72,9 @@
             class="row-img"
             src="assets/img/toi.jpg"
             alt="Ảnh đại diện Hà Ngọc Hưng"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
           />
         </div>
 
@@ -215,7 +219,6 @@
             </div>
             <p>Ngành Công nghệ thông tin</p>
             <p>Tốt nghiệp loại: Khá</p>
-            <p>GPA: 2.69 / 4.0</p>
           </div>
         </section>
 
@@ -345,7 +348,7 @@
               <div class="timeline-content">
                 <div class="row-infomation-item-knlv">
                   <p>Thực tập sinh</p>
-                  <time>09/01/2023 - 01/03/2023</time>
+                  <time>01/2023 - 03/2023</time>
                 </div>
                 <p class="timeline-subtitle">FPT Software</p>
                 <ul>
@@ -672,7 +675,12 @@
                     Nhân viên xuất sắc của năm tại Công ty cổ phần mạng trực
                     tuyến META
                   </strong>
-                  <img src="assets/img/toi2.JPG" alt="Danh hiệu 1" />
+                  <img
+                    src="assets/img/toi2.JPG"
+                    alt="Danh hiệu 1"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </ul>
               </div>
             </article>
